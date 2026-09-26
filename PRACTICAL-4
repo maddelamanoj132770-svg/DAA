@@ -1,0 +1,60 @@
+#include <iostream>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono;
+
+// Recursive Method
+long long factorialRecursive(int n)
+{
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorialRecursive(n - 1);
+}
+
+// Iterative Method
+long long factorialIterative(int n)
+{
+    long long fact = 1;
+
+    for (int i = 1; i <= n; i++)
+    {
+        fact = fact * i;
+    }
+
+    return fact;
+}
+
+int main()
+{
+    int n;
+
+    cout << "Enter a number: ";
+    cin >> n;
+
+    // Iterative Method Time Analysis
+    auto start1 = high_resolution_clock::now();
+    long long iterativeResult = factorialIterative(n);
+    auto stop1 = high_resolution_clock::now();
+
+    // Recursive Method Time Analysis
+    auto start2 = high_resolution_clock::now();
+    long long recursiveResult = factorialRecursive(n);
+    auto stop2 = high_resolution_clock::now();
+
+    // Calculate Execution Time
+    auto iterativeTime = duration_cast<nanoseconds>(stop1 - start1);
+    auto recursiveTime = duration_cast<nanoseconds>(stop2 - start2);
+
+    // Display Results
+    cout << "\nIterative Method" << endl;
+    cout << "Factorial = " << iterativeResult << endl;
+    cout << "Execution Time = " << iterativeTime.count() << " ns" << endl;
+
+    cout << "\nRecursive Method" << endl;
+    cout << "Factorial = " << recursiveResult << endl;
+    cout << "Execution Time = " << recursiveTime.count() << " ns" << endl;
+
+    return 0;
+}
